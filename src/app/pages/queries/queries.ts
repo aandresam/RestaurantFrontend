@@ -48,6 +48,7 @@ export class QueriesComponent implements OnInit {
   formatterDollar = (value: number): string => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   parserDollar = (value: string): number => +value?.replace(/\$\s?|(,*)/g, '');
 
+  public loadingProductoMasVendido = true;
   public productoMasVendidoDelMes: ProductoMasVendido | null = null;
 
   ngOnInit() {
@@ -107,6 +108,7 @@ export class QueriesComponent implements OnInit {
   public cargarProductoMasVendidoDelMes(anio: number, mes: number): void {
     this.reporteService.GetProductoMasVendidoDelMes(anio, mes).subscribe({
       next: (producto) => {
+        this.loadingProductoMasVendido = false;
         this.productoMasVendidoDelMes = producto;
       },
       error: (error) => {

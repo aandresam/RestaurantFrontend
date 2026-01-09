@@ -131,13 +131,24 @@
           <nz-card class="w-150!">
             @if (productoMasVendidoDelMes) {
             <h2>Plato más vendido</h2>
-            <p><span class="text-gray-600 font-semibold">Plato:</span> {{ productoMasVendidoDelMes.plato }}</p>
-            <p><span class="text-gray-600 font-semibold">Cantidad vendida:</span> {{ productoMasVendidoDelMes.cantidad }}</p>
-            <p><span class="text-gray-600 font-semibold">Total facturado:</span> {{ productoMasVendidoDelMes.totalFacturado | currency : '' : 'symbol' : '1.0-0' }}</p>
+            <p>
+              <span class="text-gray-600 font-semibold">Plato:</span>
+              {{ productoMasVendidoDelMes.plato }}
+            </p>
+            <p>
+              <span class="text-gray-600 font-semibold">Cantidad vendida:</span>
+              {{ productoMasVendidoDelMes.cantidad }}
+            </p>
+            <p>
+              <span class="text-gray-600 font-semibold">Total facturado:</span>
+              {{ productoMasVendidoDelMes.totalFacturado | currency : '' : 'symbol' : '1.0-0' }}
+            </p>
 
+            } @else { @if (!loadingProductoMasVendido) {
+            <p class="text-center">No hay datos para el rango de fechas seleccionado.</p>
             } @else {
             <p class="text-center">Cargando...</p>
-            }
+            } }
           </nz-card>
         </div>
       </nz-card>
