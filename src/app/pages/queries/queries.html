@@ -1,0 +1,146 @@
+<nz-tabs [(nzSelectedIndex)]="index" nzType="editable-card" nzHideAdd>
+  <div class="card-container">
+    <nz-tab nzType="card" [nzTitle]="'Ventas por mesero'">
+      <nz-card class="w-full">
+        <h1 class="text-lg font-semibold">
+          Ventas por mesero
+          <i
+            class="fa-solid fa-circle-info"
+            nzTooltipTitle="Mes actual por defecto"
+            nzTooltipPlacement="top"
+            nz-tooltip
+          ></i>
+        </h1>
+        <div>
+          <nz-range-picker
+            [nzAllowClear]="false"
+            [(ngModel)]="rangoFechas"
+            (ngModelChange)="onChangeVentasPorMesero($event)"
+          ></nz-range-picker>
+        </div>
+        <div class="mt-5">
+          <nz-table
+            #meseros
+            [nzLoading]="loadingMeseroVentaTable"
+            nzBordered
+            nzSize="small"
+            [nzData]="ventasPorMesero"
+          >
+            <thead>
+              <tr>
+                <th class="w-4/5">Mesero</th>
+                <th>Ventas</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (data of meseros.data; track data.idMesero) {
+              <tr>
+                <td>
+                  {{ data.nombres }}
+                  {{ data.apellidos }}
+                </td>
+                <td class="text-end">
+                  {{ data.totalVendido | currency : '' : 'symbol' : '1.0-0' }}
+                </td>
+              </tr>
+              }
+            </tbody>
+          </nz-table>
+        </div>
+      </nz-card>
+    </nz-tab>
+    <nz-tab nzType="card" [nzTitle]="'Consumo de clientes'">
+      <nz-card class="w-full">
+        <h1 class="text-lg font-semibold">
+          Consumo de clientes
+          <i
+            class="fa-solid fa-circle-info"
+            nzTooltipTitle="Mes actual por defecto"
+            nzTooltipPlacement="top"
+            nz-tooltip
+          ></i>
+        </h1>
+        <div class="flex gap-3">
+          <nz-range-picker [nzAllowClear]="false" [(ngModel)]="rangoFechas"></nz-range-picker>
+          <div class="flex justify-center items-center gap-2">
+            <nz-input-number
+              class="w-30! text-end!"
+              [(ngModel)]="consumoMinimo"
+              [nzFormatter]="formatterDollar"
+              (ngModelChange)="onChangeConsumoDeClientes($event)"
+              [nzParser]="parserDollar"
+            />
+            <i
+              class="fa-solid fa-circle-info"
+              nzTooltipTitle="Utilice este campo para filtrar los clientes que hayan consumido por un valor igual o superior al indicado."
+              nzTooltipPlacement="top"
+              nz-tooltip
+            ></i>
+          </div>
+        </div>
+        <div class="mt-5">
+          <nz-table
+            #clientes
+            [nzLoading]="loadingClientesDestacadosTable"
+            nzBordered
+            nzSize="small"
+            [nzData]="consumoDeClientes"
+          >
+            <thead>
+              <tr>
+                <th class="w-4/5">Cliente</th>
+                <th>Total consumido</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (data of clientes.data; track data.idCliente) {
+              <tr>
+                <td>
+                  {{ data.nombres }}
+                  {{ data.apellidos }}
+                </td>
+                <td class="text-end">
+                  {{ data.totalConsumo | currency : '' : 'symbol' : '1.0-0' }}
+                </td>
+              </tr>
+              }
+            </tbody>
+          </nz-table>
+        </div>
+      </nz-card>
+    </nz-tab>
+    <nz-tab nzType="card" [nzTitle]="'Plato más vendido'">
+      <nz-card class="w-full">
+        <h1 class="text-lg font-semibold">
+          Plato más vendido
+          <i
+            class="fa-solid fa-circle-info"
+            nzTooltipTitle="Mes actual por defecto"
+            nzTooltipPlacement="top"
+            nz-tooltip
+          ></i>
+        </h1>
+        <div>
+          <nz-range-picker
+            [nzAllowClear]="false"
+            [(ngModel)]="rangoFechas"
+            (ngModelChange)="onChangeProductoMasVendido($event)"
+          ></nz-range-picker>
+        </div>
+        <div class="mt-5">
+          <nz-card class="w-150!">
+            @if (productoMasVendidoDelMes) {
+            <h2>Plato más vendido</h2>
+            <p><span class="text-gray-600 font-semibold">Plato:</span> {{ productoMasVendidoDelMes.plato }}</p>
+            <p><span class="text-gray-600 font-semibold">Cantidad vendida:</span> {{ productoMasVendidoDelMes.cantidad }}</p>
+            <p><span class="text-gray-600 font-semibold">Total facturado:</span> {{ productoMasVendidoDelMes.totalFacturado | currency : '' : 'symbol' : '1.0-0' }}</p>
+
+            } @else {
+            <p class="text-center">Cargando...</p>
+            }
+          </nz-card>
+        </div>
+      </nz-card>
+    </nz-tab>
+  </div>
+</nz-tabs>

@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+@use "tailwindcss";
+
+nz-card {
+    width: 100% !important;
+    border-radius: 12px !important;
+    padding: 8px !important;
+}

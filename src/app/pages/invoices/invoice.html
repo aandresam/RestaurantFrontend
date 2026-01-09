@@ -1,0 +1,26 @@
+<div class="flex gap-5">
+  <div class="w-1/2 flex flex-col gap-5">
+    @if (clientes && meseros && supervisores) {
+    <app-client-info
+      [clientes]="clientes"
+      [meseros]="meseros"
+      [supervisores]="supervisores"
+      class="gap-2"
+    />
+    } @else {
+    <nz-card class="w-full rounded-xl! p-2!">
+      <p class="text-center">Cargando...</p>
+    </nz-card>
+    } @if (mesas && platos) {
+    <app-add-dishes [mesas]="mesas" [platos]="platos" />
+
+    } @else {
+    <nz-card class="w-full rounded-xl! p-2!">
+      <p class="text-center">Cargando...</p>
+    </nz-card>
+    }
+  </div>
+  <div class="w-1/2 min-h-full">
+    <app-invoice-detail />
+  </div>
+</div>

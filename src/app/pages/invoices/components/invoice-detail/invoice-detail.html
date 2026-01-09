@@ -1,0 +1,115 @@
+<nz-card class="w-full min-h-full rounded-xl! p-2!">
+  <div class="flex flex-col place-content-between">
+    <div>
+      <h1 class="text-xl text-center text-gray-600! font-medium!">
+        <!-- <i class="fa-solid fa-file-invoice-dollar"></i> -->
+        RESUMEN DE LA FACTURA
+      </h1>
+      <div class="flex flex-col mt-12!">
+        <div class="flex justify-between">
+          <span class="text-gray-600 font-semibold">Establecimiento comercial: </span>
+          <span class="text-gray-500">Restaurante Comidas Típicas del Sur</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-600 font-semibold">NIT: </span>
+          <span class="text-gray-500">900.123.456-7</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-600 font-semibold">Dirección: </span>
+          <span class="text-gray-500">Calle 123 #45-67, Bogotá</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-600 font-semibold">Teléfono: </span>
+          <span class="text-gray-500">(601) 234-5678</span>
+        </div>
+      </div>
+      <nz-divider></nz-divider>
+      <div>
+        <h2 class="text-gray-600! text-sm font-medium">
+          <!-- <i class="fa-solid fa-address-book"></i> -->
+          INFORMACIÓN DEL CLIENTE
+        </h2>
+        <div class="flex flex-col gap-1">
+          <div>
+            <div class="flex justify-between">
+              <span class="text-gray-600 font-semibold">Nombre:</span>
+              <span class="text-gray-500">
+                {{ clienteSeleccionado()?.nombres }}
+                {{ clienteSeleccionado()?.apellidos }}
+              </span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600 font-semibold">NIT:</span>
+              <span class="text-gray-500">
+                {{ clienteSeleccionado()?.identificacion }}
+              </span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600 font-semibold">Dirección:</span>
+              <span class="text-gray-500">{{ clienteSeleccionado()?.direccion }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600 font-semibold">Teléfono:</span>
+              <span class="text-gray-500">{{ clienteSeleccionado()?.telefono }}</span>
+            </div>
+          </div>
+          <div class="mt-2">
+            <span class="text-gray-600 font-semibold">ATENDIDO POR</span>
+            <div class="flex justify-between">
+              <span class="text-gray-600 font-semibold">Mesero:</span>
+              <span class="text-gray-500"
+                >{{ meseroSeleccionado()?.nombres }} {{ meseroSeleccionado()?.apellidos }}</span
+              >
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600 font-semibold">Mesa:</span>
+              <span class="text-gray-500">{{ mesaSeleccionada()?.nombre }} (#{{ mesaSeleccionada()?.nroMesa }})</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600 font-semibold">Supervisor:</span>
+              <span class="text-gray-500"
+                >{{ supervisorSeleccionado()?.nombres }}
+                {{ supervisorSeleccionado()?.apellidos }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <nz-divider></nz-divider>
+      <div>
+        <h2 class="text-gray-600! text-sm font-medium">
+          <!-- <i class="fa-solid fa-utensils"></i> -->
+          DETALLE DE CONSUMO
+        </h2>
+        @if (platosSeleccionados().length > 0) { @for (item of platosSeleccionados(); track item.id)
+        {
+        <div class="space-y-2">
+          <div class="space-y-2 max-h-48 overflow-y-auto">
+            <div class="flex justify-between items-center py-2 text-sm">
+              <span class="text-foreground">
+                {{ item.plato }}
+                <span class="text-gray-400! font-normal"> (x{{ item.cantidad || 1 }}) </span>
+              </span>
+              <span class="font-medium">{{ item.valor | currency : '' : 'symbol' : '1.0-0' }}</span>
+            </div>
+          </div>
+        </div>
+        } } @else {
+        <p class="text-gray-500! mt-4!">No se han agregado platos al consumo.</p>
+        }
+      </div>
+    </div>
+
+    <button
+      [disabled]="!facturaEsValida()"
+      class="place-self-end"
+      nz-button
+      nzType="primary"
+      nzSize="large"
+      nzBlock
+      (click)="registrarFactura()"
+    >
+      Registrar Factura
+    </button>
+  </div>
+</nz-card>

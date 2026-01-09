@@ -1,0 +1,63 @@
+<nz-card class="w-full rounded-xl! p-2!">
+  <h1 class="text-xl">
+    <i class="fa-solid fa-rectangle-list"></i>
+    Información
+  </h1>
+  <div class="flex flex-col gap-5 mt-5">
+    <div class="flex flex-col gap-1">
+      <label for="">Cliente (*)</label>
+      <div class="flex gap-3">
+        <nz-select
+          #cliente
+          nzShowSearch
+          [(ngModel)]="clienteSeleccionado"
+          [nzOptions]="opcionesDeClientes()"
+          nzPlaceHolder="Ingrese la identificación de un cliente"
+          (nzOpenChange)="seleccionarCliente(cliente.activatedValue)"
+          [nzSize]="'large'"
+          class="w-full"
+        >
+        </nz-select>
+        <button
+          nz-button
+          nzType="primary"
+          [nzSize]="'large'"
+          nz-tooltip
+          nzTooltipTitle="Crear nuevo cliente"
+        >
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label for="">Mesero (*)</label>
+      <nz-select
+        #mesero
+        nzShowSearch
+        [(ngModel)]="meseroSeleccionado"
+        [nzOptions]="opcionesDeMeseros()"
+        (nzOpenChange)="seleccionarMesero(mesero.activatedValue)"
+        nzPlaceHolder="Ingrese el nombre de un mesero"
+        [nzSize]="'large'"
+        class="w-full"
+      >
+      </nz-select>
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label for="">Supervisor (*)</label>
+      <nz-select
+        #supervisor
+        nzShowSearch
+        [(ngModel)]="supervisorSeleccionado"
+        nzPlaceHolder="Ingrese el nombre de un supervisor"
+        (nzOpenChange)="seleccionarSupervisor(supervisor.activatedValue)"
+        [nzSize]="'large'"
+        [nzOptions]="opcionesDeSupervisores()"
+        class="w-full"
+      >
+      </nz-select>
+    </div>
+  </div>
+</nz-card>
