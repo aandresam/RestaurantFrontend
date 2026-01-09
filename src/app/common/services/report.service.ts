@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { ClienteConsumoMinimo } from '../models/cliente-consumo-minimo.model';
 import { MeseroVenta } from '../models/mesero-venta.model';
 import { ProductoMasVendido } from '../models/producto-mas-vendido';
@@ -29,10 +29,7 @@ export class ReporteService {
     );
   }
 
-  public GetProductoMasVendidoDelMes(
-    anio: number,
-    mes: number
-  ): Observable<ProductoMasVendido> {
+  public GetProductoMasVendidoDelMes(anio: number, mes: number): Observable<ProductoMasVendido> {
     mes = mes + 1;
     return this.http.get<ProductoMasVendido>(
       `${this.apiUrl}/producto-mas-vendido?year=${anio}&month=${mes}`
