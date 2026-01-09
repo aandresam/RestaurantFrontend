@@ -199,9 +199,4 @@ Para una entrega típica se recomienda incluir:
 - Artefacto compilado: `dist/RestaurantFrontend/` comprimido (`RestaurantFrontend-dist.zip`)
 - Este `README.md`
 
-## Notas
 
-- **URL de API (BASE_URL):** se configura en `environment.*.ts` mediante `apiUrl` (el código actual usa `environment.apiUrl`).
-- **Swagger:** el backend expone Swagger/OpenAPI para explorar endpoints y modelos.
-- **CORS:** si el frontend corre en `http://localhost:4200` y la API en otro dominio/puerto, el backend debe permitir CORS o se debe usar un proxy (por ejemplo con Nginx).
-- **HTTPS local:** si el backend usa HTTPS con certificado autofirmado, el navegador puede bloquear requests hasta confiar el certificado.
